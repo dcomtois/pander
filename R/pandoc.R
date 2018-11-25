@@ -1126,11 +1126,11 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
     ## #########################################################################
 
     browser()
-    if (plain.ascii){
-        t <- apply(t, c(1, 2), to.plain.ascii)
-        t.rownames <- sapply(t.rownames, to.plain.ascii)
-        t.colnames <- sapply(t.colnames, to.plain.ascii)
-    }
+    # if (plain.ascii){
+    #     t <- apply(t, c(1, 2), to.plain.ascii)
+    #     t.rownames <- sapply(t.rownames, to.plain.ascii)
+    #     t.colnames <- sapply(t.colnames, to.plain.ascii)
+    # }
 
     
     ## header width
@@ -1319,11 +1319,11 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
                    sep.col <- c('| ', ' | ', ' |')
                })
 
-        # if (plain.ascii){
-        #     t <- apply(t, c(1, 2), to.plain.ascii)
-        #     t.rownames <- sapply(t.rownames, to.plain.ascii)
-        #     t.colnames <- sapply(t.colnames, to.plain.ascii)
-        # }
+        if (plain.ascii){
+            t <- apply(t, c(1, 2), to.plain.ascii)
+            t.rownames <- sapply(t.rownames, to.plain.ascii)
+            t.colnames <- sapply(t.colnames, to.plain.ascii)
+        }
 
         ## #########################################################################
         ## Actual printing starts here
