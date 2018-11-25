@@ -644,14 +644,14 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
     }
 
     ## cell conversion to plain-ascii (deletion of markup characters)
-    to.plain.ascii <- function(x){
-        x <- gsub('[\\\\]', '', x) # backslashes
-        x <- gsub('&nbsp;', ' ', x)  # table non-breaking space
-        x <- gsub('[*]+([^\\*.]*)[*]+', '\\1', x) # emphasis and strong
-        x <- gsub('^[`]|[`]$', '', x) # verbatium
-        x <- gsub('^[~]{2}|[~]{2}$', '', x) # strikeout
-        gsub('^[_]|[_]$', '', x) # italic
-    }
+    # to.plain.ascii <- function(x){
+    #     x <- gsub('[\\\\]', '', x) # backslashes
+    #     x <- gsub('&nbsp;', ' ', x)  # table non-breaking space
+    #     x <- gsub('[*]+([^\\*.]*)[*]+', '\\1', x) # emphasis and strong
+    #     x <- gsub('^[`]|[`]$', '', x) # verbatium
+    #     x <- gsub('^[~]{2}|[~]{2}$', '', x) # strikeout
+    #     gsub('^[_]|[_]$', '', x) # italic
+    # }
 
     ## split single cell with line breaks based on max.width
     split.single.cell <- function(x, max.width){
@@ -1125,6 +1125,14 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
     ## compute column width
     ## #########################################################################
 
+    browser()
+    if (plain.ascii){
+        t <- apply(t, c(1, 2), to.plain.ascii)
+        t.rownames <- sapply(t.rownames, to.plain.ascii)
+        t.colnames <- sapply(t.colnames, to.plain.ascii)
+    }
+
+    
     ## header width
     if (!is.null(t.colnames)) {
         t.colnames <- replace(t.colnames, which(t.colnames == ''), '&nbsp;')
@@ -1311,11 +1319,11 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
                    sep.col <- c('| ', ' | ', ' |')
                })
 
-        if (plain.ascii){
-            t <- apply(t, c(1, 2), to.plain.ascii)
-            t.rownames <- sapply(t.rownames, to.plain.ascii)
-            t.colnames <- sapply(t.colnames, to.plain.ascii)
-        }
+        # if (plain.ascii){
+        #     t <- apply(t, c(1, 2), to.plain.ascii)
+        #     t.rownames <- sapply(t.rownames, to.plain.ascii)
+        #     t.colnames <- sapply(t.colnames, to.plain.ascii)
+        # }
 
         ## #########################################################################
         ## Actual printing starts here
