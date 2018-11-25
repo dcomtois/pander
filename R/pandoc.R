@@ -1125,7 +1125,6 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
     ## compute column width
     ## #########################################################################
 
-    browser()
     if (plain.ascii) {
         t <- apply(t, c(1, 2), to.plain.ascii)
     }
