@@ -644,14 +644,14 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
     }
 
     ## cell conversion to plain-ascii (deletion of markup characters)
-    # to.plain.ascii <- function(x){
-    #     x <- gsub('[\\\\]', '', x) # backslashes
-    #     x <- gsub('&nbsp;', ' ', x)  # table non-breaking space
-    #     x <- gsub('[*]+([^\\*.]*)[*]+', '\\1', x) # emphasis and strong
-    #     x <- gsub('^[`]|[`]$', '', x) # verbatium
-    #     x <- gsub('^[~]{2}|[~]{2}$', '', x) # strikeout
-    #     gsub('^[_]|[_]$', '', x) # italic
-    # }
+    to.plain.ascii <- function(x){
+        x <- gsub('[\\\\]', '', x) # backslashes
+        x <- gsub('&nbsp;', ' ', x)  # table non-breaking space
+        x <- gsub('[*]+([^\\*.]*)[*]+', '\\1', x) # emphasis and strong
+        x <- gsub('^[`]|[`]$', '', x) # verbatium
+        x <- gsub('^[~]{2}|[~]{2}$', '', x) # strikeout
+        gsub('^[_]|[_]$', '', x) # italic
+    }
 
     ## split single cell with line breaks based on max.width
     split.single.cell <- function(x, max.width){
