@@ -635,7 +635,10 @@ pandoc.list <- function(...)
 #'        b = "Can be also supplied as a vector, for each cell separately")
 #' pandoc.table(x, split.cells = 10, use.hyphening = TRUE)
 pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), decimal.mark = panderOptions('decimal.mark'), big.mark = panderOptions('big.mark'), round = panderOptions('round'), missing = panderOptions('missing'), justify, style = c('multiline', 'grid', 'simple', 'rmarkdown', 'jira'), split.tables = panderOptions('table.split.table'), split.cells = panderOptions('table.split.cells'), keep.trailing.zeros = panderOptions('keep.trailing.zeros'), keep.line.breaks = panderOptions('keep.line.breaks'), plain.ascii = panderOptions('plain.ascii'), use.hyphening = panderOptions('use.hyphening'), row.names, col.names, emphasize.rownames = panderOptions('table.emphasize.rownames'), emphasize.rows, emphasize.cols, emphasize.cells, emphasize.strong.rows, emphasize.strong.cols, emphasize.strong.cells, emphasize.italics.rows, emphasize.italics.cols, emphasize.italics.cells, emphasize.verbatim.rows, emphasize.verbatim.cols, emphasize.verbatim.cells, ...) { #nolint
-
+  
+    ## Fixes encoding issue
+    cells <- enc2native(cells)
+    
     row.names.provided <- !missing(row.names)
 
     ## expands cells for output
