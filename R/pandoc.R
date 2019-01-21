@@ -1145,6 +1145,9 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
     ## remove traling spaces, because they affect formatting negatively
     t <- apply(t, c(1, 2), function(x) gsub('[[:space:]]*$', '', x))
 
+    ## remove image references
+    t <- sub("\\!\\[.*\\].+$", "", t)
+    
     ## also dealing with cells split by newlines
     t.width <-  as.numeric(apply(cbind(t.colnames.width, apply(t, 2, function(x) max(sapply(strsplit(x,'\n'), function(x) max(nchar(x, type = 'width'), 0))))), 1, max)) #nolint
 
