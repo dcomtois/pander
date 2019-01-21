@@ -1146,10 +1146,10 @@ pandoc.table.return <- function(t, caption, digits = panderOptions('digits'), de
     t <- apply(t, c(1, 2), function(x) gsub('[[:space:]]*$', '', x))
 
     ## remove image references
-    t <- sub("\\!\\[.*\\].+$", "", t)
+    t.tmp <- sub("\\!\\[.*\\].+$", "", t)
     
     ## also dealing with cells split by newlines
-    t.width <-  as.numeric(apply(cbind(t.colnames.width, apply(t, 2, function(x) max(sapply(strsplit(x,'\n'), function(x) max(nchar(x, type = 'width'), 0))))), 1, max)) #nolint
+    t.width <-  as.numeric(apply(cbind(t.colnames.width, apply(t.tmp, 2, function(x) max(sapply(strsplit(x,'\n'), function(x) max(nchar(x, type = 'width'), 0))))), 1, max)) #nolint
 
     ## remove obvious row.names
     if ((!row.names.provided && (all(t.rownames == 1:nrow(t)) | all(t.rownames == ''))) |
